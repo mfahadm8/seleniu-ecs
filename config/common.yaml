@@ -3,6 +3,10 @@ tags:
   app: seleniumCloud
 
 network:
+  vpc:
+    natGatewaySubnetName: Public
+    maxAzs: 3
+    
   subnets:
     # Client UI subnet
     - cidrMask: 21
