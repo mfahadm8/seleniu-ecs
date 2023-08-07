@@ -5,8 +5,6 @@ from aws_cdk import App, Environment
 
 from src.network_stack.network_stack import NetworkStack
 from src.compute_stack.compute_stack import ComputeStack
-from src.deploy_stack.deploy_stack import DeployStack
-from src.maintainance_stack.maintainance_stack import MaintainanceStack
 from utils import config_util
 
 app = App()
