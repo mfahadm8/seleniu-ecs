@@ -58,7 +58,9 @@ class Ecs(Construct):
         selenium_container = selenium_taskdef.add_container(
             "ui-container",
             image=ecs.ContainerImage.from_registry(
-                name=self._config["compute"]["ecs"]["selenium"]["image"]+ ":"+ self._config["compute"]["ecs"]["selenium"]["image_tag"],
+                name=self._config["compute"]["ecs"]["selenium"]["repo_arn"]
+                + ":"
+                + self._config["compute"]["ecs"]["selenium"]["image_tag"],
             ),
             logging=ecs.LogDriver.aws_logs(
                 stream_prefix="Seleniumwebapp",
