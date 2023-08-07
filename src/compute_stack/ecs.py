@@ -197,5 +197,8 @@ class Ecs(Construct):
 
         # Create HTTP listener for redirection
         http_listener = self.lb.add_listener(
-            "HttpListener", port=80, protocol=elbv2.ApplicationProtocol.HTTP
+            "HttpListener",
+            port=80,
+            protocol=elbv2.ApplicationProtocol.HTTP,
+            default_target_groups=[target_group],
         )
