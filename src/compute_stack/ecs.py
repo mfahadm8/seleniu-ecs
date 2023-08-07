@@ -185,8 +185,8 @@ class Ecs(Construct):
             protocol=elbv2.ApplicationProtocol.HTTP,
             targets=[self._selenium_service],
             health_check=elbv2.HealthCheck(
-                path="/",
-                protocol=elbv2.Protocol.HTTPS,
+                path="/ui",
+                protocol=elbv2.Protocol.HTTP,
                 port=str(self._config["compute"]["ecs"]["selenium"]["port"]),
                 interval=Duration.seconds(60),
                 timeout=Duration.seconds(30),
