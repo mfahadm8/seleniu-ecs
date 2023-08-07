@@ -1,0 +1,29 @@
+aws_account: "384549422462"
+aws_region: us-east-1
+
+network:
+  vpc:
+    cidr: 10.50.0.0/16
+    create_natgateway: 0
+
+  subnets:
+    - cidrMask: 21
+      name: Public
+      subnetType: PUBLIC
+
+compute:
+  ecs:
+    selenium:
+      repo_arn: "selenium/standalone-chrome"
+      image_tag: "4.11.0-20230801"
+      port: 4444
+      cpu: 512
+      memory: 1024
+      minimum_containers: 1
+      maximum_containers: 10
+      fargate_spot:
+        weight: 100
+        base: 1
+      fargate:
+        weight: 0
+        base: 0

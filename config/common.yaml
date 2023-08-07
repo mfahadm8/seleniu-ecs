@@ -1,0 +1,15 @@
+name: seleniumCloud
+tags:
+  app: seleniumCloud
+
+network:
+  subnets:
+    # Client UI subnet
+    - cidrMask: 21
+      name: Public
+      subnetType: PUBLIC
+
+maintainance:
+  image_cleanup:
+    retention_days: 60
+    repo_arns: "selenium/client_webapp,selenium/api"
