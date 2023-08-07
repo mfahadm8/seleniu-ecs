@@ -47,12 +47,6 @@ class Ecs(Construct):
 
         # Import ECR repository for ui
 
-        selenium_repository = ecr.Repository.from_repository_arn(
-            self,
-            "SeleniumWebAppECRRepo",
-            repository_arn=self._config["compute"]["ecs"]["selenium"]["repo_arn"],
-        )
-
         # Create Fargate task definition for ui
         selenium_taskdef = ecs.FargateTaskDefinition(
             self,
@@ -63,9 +57,8 @@ class Ecs(Construct):
 
         selenium_container = selenium_taskdef.add_container(
             "ui-container",
-            image=ecs.ContainerImage.from_ecr_repository(
-                selenium_repository,
-                tag=self._config["compute"]["ecs"]["selenium"]["image_tag"],
+            image=ecs.ContainerImage.from_registry(
+                name=self._config["compute"]["ecs"]["selenium"]["image"]+ ":"+ self._config["compute"]["ecs"]["selenium"]["image_tag"],
             ),
             logging=ecs.LogDriver.aws_logs(
                 stream_prefix="Seleniumwebapp",
