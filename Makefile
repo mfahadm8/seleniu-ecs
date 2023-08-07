@@ -30,16 +30,16 @@ test:
 	pytest
 
 synth:
-	@cdk synth -c stage=$(STAGE) --output=cdk.out/$(STAGE) $(STACK)-$(STAGE)
+	@cdk synth -c stage=$(STAGE) --output=cdk.out/$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 deploy:
-	@cdk deploy --app=cdk.out/$(STAGE) $(STACK)-$(STAGE)
+	@cdk deploy --app=cdk.out/$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 diff:
-	@cdk diff -c stage=$(STAGE) $(STACK)-$(STAGE)
+	@cdk diff -c stage=$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 destroy:
-	@cdk destroy -c stage=$(STAGE) $(STACK)-$(STAGE)
+	@cdk destroy -c stage=$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 bootstrapp-cdk-toolkit:
 	@cdk bootstrap aws://$(shell cat config/$(STAGE).yaml | yq -r '.awsAccount')/$(shell cat config/$(STAGE).yaml | yq -r '.aws_region') -c stage=$(STAGE)
