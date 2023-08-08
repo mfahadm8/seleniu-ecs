@@ -6,7 +6,7 @@ STAGE?= dev
 ifeq ($(STAGE), prod)
 	REGION=af-south-1
 else
-	REGION=us-east-1
+	REGION=eu-west-3
 endif
 
 setup-codebuild:
