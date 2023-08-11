@@ -11,7 +11,7 @@ endif
 
 init:
 	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-	source ~/.bashrc
+	exec bash --login
 	nvm install 16
 	nvm use 16
 	npm install -g aws-cdk
