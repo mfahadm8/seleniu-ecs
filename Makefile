@@ -13,7 +13,6 @@ local-venv:
 	$(PYTHON) -m venv .venv
 
 install-dependencies:
-	python3 -m pip install -e .
 	pip install -r requirements.txt
 
 lint:
