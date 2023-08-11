@@ -9,9 +9,12 @@ else
 	REGION=eu-west-3
 endif
 
-init:
+install-nvm:
 	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+	source .bashrc
 	exec bash --login
+
+init:
 	nvm install 16
 	nvm use 16
 	npm install -g aws-cdk
