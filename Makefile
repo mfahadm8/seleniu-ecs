@@ -9,6 +9,11 @@ else
 	REGION=eu-west-3
 endif
 
+init:
+	make local-venv
+	source .venv/bin/activate
+	make install-dependencies
+
 local-venv:
 	$(PYTHON) -m venv .venv
 
@@ -25,6 +30,7 @@ synth:
 	@cdk synth -c stage=$(STAGE) --output=cdk.out/$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 deploy:
+	make synth
 	@cdk deploy --app=cdk.out/$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 diff:
