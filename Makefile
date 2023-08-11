@@ -11,7 +11,7 @@ endif
 
 install-nvm:
 	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
-	source .bashrc
+	source ~/.bashrc
 	exec bash --login
 
 init:
