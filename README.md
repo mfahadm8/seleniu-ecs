@@ -49,26 +49,26 @@ If this is the first time you are using cdk in a particular region, you will hav
 make bootstrapp-cdk-toolkit
 ```
 
-- Create a python virualenv and install dependencies using this command:
-
+6. ## Create a python virualenv and install dependencies
+Create python environment and install python dependencies
 ```bash
 make local-venv
 source .venv/bin/activate
 make install-dependencies
 ```
 
-That's it! Now you are ready to provision your stage.
+That's it! Now you are ready to provision your stacks.
 
 6. ## Stacks Deployment
-Please make sure to run `make synth` command in case you make any changes to infrastructure logic and add something new.
-### Network Stack Deployment
+Please make sure to run `make synth` command in case you make any changes to infrastructure logic and add something new. Run both commands to deploy the stacks in order.
+### Step 1:Network Stack Deployment
 ```bash
 make synth
 make deploy
 ```
 
 It will prompt you to accept hte changes, type yes and enter
-### ComputeStack Deployment
+### Step 2:ComputeStack Deployment
 ```bash
 make synth
 make deploy STACK=ComputeStack
