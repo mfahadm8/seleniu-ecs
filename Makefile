@@ -10,6 +10,11 @@ else
 endif
 
 init:
+	curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+	source ~/.bashrc
+	nvm install 16
+	nvm use 16
+	npm install -g aws-cdk
 	make local-venv
 	source .venv/bin/activate
 	make install-dependencies
