@@ -4,27 +4,47 @@ This repository hosts a CDK project that provison a multi-stage AWS infrastructu
 
 Learn more about this project setup by reading this [article](https://medium.com/better-programming/how-to-organize-your-aws-cdk-project-f1c463aa966e).
 
-## Dev tools:
-
+## Prerequisite:
+Make sure you have the following installed and configured
 - aws cli
-- aws account
-- cdk cli
 - python3
+- make 
 
-## Stage bootstrapping
-
-Before trying to deploy a stage, go through these steps:
-
-- Create your stage config file under `config` dir. Then update its content according to your context (account id, cluster size, ...)
-
-- Allow ES AWS service to access your vpc resources by running this command:
+## Presetup
+1. Install `node.js version 16`, I noticed that aws cdk does not work well with some of the latest versions. Just to be safe, use the exact same versions
 
 ```bash
-aws iam create-service-linked-role --aws-service-name es.amazonaws.com
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source ~/.bashrc
+exec bash --login
+```
+- ### NVM validation
+```bash
+nvm --help
+```
+In case the command is not working, refresh the window/terminal or open up a new one.
+
+2. ## Install nodejs 16 using nvm
+```bash
+nvm install 16
+nvm use 16
+```
+- In case you are using windows or mac, you can install nodejs 16 from the following [Node Js 16 link](https://nodejs.org/en/download/current)
+
+3. ## Install CDK
+```bash
+npm install -g aws-cdk
 ```
 
-- Bootstrap the cdk toolkit. This step is needed for the ComputeStack as we are using assets.
+4. ## Setup Virtual Env and install dependencies
+```bash
+make local-venv
+source .venv/bin/activate
+make install-dependencies
+```
 
+5. ## CDK bootstrapping
+If this is the first time you are using cdk in a particular region, you will have to bootstrap that region in order to deploy your stacks
 ```bash
 make bootstrapp-cdk-toolkit
 ```
@@ -39,9 +59,17 @@ make install-dependencies
 
 That's it! Now you are ready to provision your stage.
 
-## Stage lifecycle
+6. ## Stacks Deployment
+Please make sure to run `make synth` command in case you make any changes to infrastructure logic and add something new.
+### Network Stack Deployment
+```bash
+make synth
+make deploy
+```
 
-- `make diff STAGE=pro` display cdk diff of all stacks of the pro stage
-- `make deploy STAGE=dev STACKS=NetworkStack` synthesize cloudformation template then deploy the NetworkStack to the dev stage
-- `make destroy` destroy the 3 stacks of the dev stage
-# seleniu-ecs
+It will prompt you to accept hte changes, type yes and enter
+### ComputeStack Deployment
+```bash
+make synth
+make deploy STACK=ComputeStack
+```
