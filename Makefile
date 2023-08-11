@@ -4,23 +4,16 @@ STACK?=NetworkStack
 
 STAGE?= dev
 ifeq ($(STAGE), prod)
-	REGION=af-south-1
+	REGION=us-east-1
 else
 	REGION=eu-west-3
 endif
-
-setup-codebuild:
-	aws cloudformation deploy --template-file ./cloudformation/codebuild/docker_build.yml --stack-name CodebuildDockerPushStack --region $(REGION) --capabilities CAPABILITY_NAMED_IAM
-
-s3-pipeline:
-	aws cloudformation deploy --template-file ./cloudformation\s3\buckets.yaml --stack-name S3Buckets-$(STAGE) --region $(REGION) --capabilities CAPABILITY_NAMED_IAM
-
-.PHONY: all test lint synth diff deploy
 
 local-venv:
 	$(PYTHON) -m venv .venv
 
 install-dependencies:
+	python3 -m pip install -e .
 	pip install -r requirements.txt
 
 lint:
@@ -42,4 +35,4 @@ destroy:
 	@cdk destroy -c stage=$(STAGE) Selenium-$(STACK)-$(STAGE)
 
 bootstrapp-cdk-toolkit:
-	@cdk bootstrap aws://$(shell cat config/$(STAGE).yaml | yq -r '.awsAccount')/$(shell cat config/$(STAGE).yaml | yq -r '.aws_region') -c stage=$(STAGE)
+	@cdk bootstrap aws://964915130125/$(REGION) -c stage=$(STAGE)
