@@ -128,7 +128,6 @@ class Ecs(Construct):
             stack=stack,
             min_instances=min_instances,
             max_instances=max_instances,
-            service=service,
         )
 
         listener = load_balancer.add_listener(
@@ -189,7 +188,6 @@ class Ecs(Construct):
             stack=stack,
             min_instances=min_instances,
             max_instances=max_instances,
-            service=service,
         )
 
     def create_service(
@@ -251,14 +249,14 @@ class Ecs(Construct):
 
     def create_scaling_policy(
         self,
-        cluster,
+        cluster_name,
+        service_name,
         identifier,
         load_balancer,
         security_group,
         stack,
         max_instances,
         min_instances,
-        service,
     ):
         target = autoscaling.ScalableTarget(
             stack,
@@ -266,7 +264,7 @@ class Ecs(Construct):
             service_namespace=autoscaling.ServiceNamespace.ECS,
             max_capacity=max_instances,
             min_capacity=min_instances,
-            resource_id=f"service/{cluster.cluster_name}/{service.service_name}",
+            resource_id=f"service/{cluster_name}/{service_name}",
             scalable_dimension="ecs:service:DesiredCount",
         )
 
@@ -276,8 +274,8 @@ class Ecs(Construct):
             statistic="max",
             period=Duration.minutes(1),
             dimensions={
-                "ClusterName": cluster.cluster_name,
-                "ServiceName": service.service_name,
+                "ClusterName": cluster_name,
+                "ServiceName": service_name,
             },
         )
 
