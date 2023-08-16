@@ -64,11 +64,11 @@ class Ecs(Construct):
                 + self._config["compute"]["ecs"]["selenium"]["image_tag"],
             ),
             logging=ecs.LogDriver.aws_logs(
-                stream_prefix="Seleniumwebapp",
+                stream_prefix="Seleniumwebapp" + str(index),
                 log_group=aws_logs.LogGroup(
                     self,
-                    "SeleniumWebAppServerLogGroup",
-                    log_group_name="/ecs/Seleniumwebapp-server",
+                    "SeleniumWebAppServerLogGroup" + str(index),
+                    log_group_name="/ecs/Seleniumwebapp-server" + str(index),
                     retention=aws_logs.RetentionDays.ONE_WEEK,
                     removal_policy=RemovalPolicy.DESTROY,
                 ),
