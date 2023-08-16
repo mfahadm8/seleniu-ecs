@@ -51,13 +51,13 @@ class Ecs(Construct):
         # Create Fargate task definition for ui
         selenium_taskdef = ecs.FargateTaskDefinition(
             self,
-            "selenium-taskdef" + index,
+            "selenium-taskdef" + str(index),
             memory_limit_mib=self._config["compute"]["ecs"]["selenium"]["memory"],
             cpu=self._config["compute"]["ecs"]["selenium"]["cpu"],
         )
 
         selenium_container = selenium_taskdef.add_container(
-            "ui-container" + index,
+            "ui-container" + str(index),
             image=ecs.ContainerImage.from_registry(
                 name=self._config["compute"]["ecs"]["selenium"]["repo_arn"]
                 + ":"
@@ -97,7 +97,7 @@ class Ecs(Construct):
 
         selenium_security_group = ec2.SecurityGroup(
             self,
-            "SeleniumWebAppSecurityGroup" + index,
+            "SeleniumWebAppSecurityGroup" + str(index),
             vpc=self._vpc,
             allow_all_outbound=True,
         )
@@ -107,7 +107,7 @@ class Ecs(Construct):
         )
         self._selenium_service = ecs.FargateService(
             self,
-            "Seleniumwebapp-service" + index,
+            "Seleniumwebapp-service" + str(index),
             cluster=self._cluster,
             security_groups=[selenium_security_group],
             desired_count=self._config["compute"]["ecs"]["selenium"][
@@ -122,7 +122,7 @@ class Ecs(Construct):
         # Enable auto scaling for the frontend service
         scaling = autoscaling.ScalableTarget(
             self,
-            "Selenium-webapp-scaling" + index,
+            "Selenium-webapp-scaling" + str(index),
             service_namespace=autoscaling.ServiceNamespace.ECS,
             resource_id=f"service/{self._cluster.cluster_name}/{self._selenium_service.service_name}",
             scalable_dimension="ecs:service:DesiredCount",
@@ -135,7 +135,7 @@ class Ecs(Construct):
         )
 
         scaling.scale_on_metric(
-            "ScaleToCPUWithMultipleDatapoints" + index,
+            "ScaleToCPUWithMultipleDatapoints" + str(index),
             metric=cloudwatch.Metric(
                 namespace="AWS/ECS",
                 metric_name="CPUUtilization",
@@ -155,7 +155,7 @@ class Ecs(Construct):
         # Create security group for the load balancer
         lb_security_group = ec2.SecurityGroup(
             self,
-            "LoadBalancerSecurityGroup" + index,
+            "LoadBalancerSecurityGroup" + str(index),
             vpc=self._cluster.vpc,
             allow_all_outbound=True,
         )
@@ -171,7 +171,7 @@ class Ecs(Construct):
         # Create load balancer
         self.lb = elbv2.ApplicationLoadBalancer(
             self,
-            "LoadBalancer" + index,
+            "LoadBalancer" + str(index),
             vpc=self._cluster.vpc,
             internet_facing=True,
             security_group=lb_security_group,
@@ -180,7 +180,7 @@ class Ecs(Construct):
         # Create target group
         target_group = elbv2.ApplicationTargetGroup(
             self,
-            "TargetGroup" + index,
+            "TargetGroup" + str(index),
             vpc=self._cluster.vpc,
             port=self._config["compute"]["ecs"]["selenium"]["port"],
             protocol=elbv2.ApplicationProtocol.HTTP,
@@ -198,7 +198,7 @@ class Ecs(Construct):
 
         # Create HTTP listener for redirection
         http_listener = self.lb.add_listener(
-            "HttpListener" + index,
+            "HttpListener" + str(index),
             port=80,
             protocol=elbv2.ApplicationProtocol.HTTP,
             default_target_groups=[target_group],
