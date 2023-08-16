@@ -149,7 +149,7 @@ class Ecs(Construct):
             datapoints_to_alarm=6,
         )
 
-        self.__setup_application_load_balancer()
+        self.__setup_application_load_balancer(index)
 
     def __setup_application_load_balancer(self, index):
         # Create security group for the load balancer
