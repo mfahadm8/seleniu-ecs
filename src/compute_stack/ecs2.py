@@ -133,17 +133,20 @@ class Ecs(Construct):
         listener = load_balancer.add_listener(
             "Listener", port=4444, protocol=elbv2.ApplicationProtocol.HTTP
         )
+
         service.register_load_balancer_targets(
-            container_name="selenium-hub-container",
-            container_port=4444,
-            new_target_group_id="ECS",
-            protocol=ecs.Protocol.TCP,
-            listener=ecs.ListenerConfig.application_listener(
-                listener,
-                protocol=elbv2.ApplicationProtocol.HTTP,
-                port=4444,
-                targets=[service],
-            ),
+            ecs.EcsTarget(
+                container_name="selenium-hub-container",
+                container_port=4444,
+                new_target_group_id="ECS",
+                protocol=ecs.Protocol.TCP,
+                listener=ecs.ListenerConfig.application_listener(
+                    listener,
+                    protocol=elbv2.ApplicationProtocol.HTTP,
+                    port=4444,
+                    targets=[service],
+                ),
+            )
         )
 
     def create_browser_resource(
