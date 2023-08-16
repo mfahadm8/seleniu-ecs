@@ -14,6 +14,7 @@ network:
 compute:
   ecs:
     selenium:
+      service_count: 2
       repo_arn: "selenium/standalone-chrome"
       image_tag: "4.11.0-20230801"
       port: 4444
