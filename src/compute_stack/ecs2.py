@@ -44,7 +44,13 @@ class Ecs(Construct):
         self.min_instances = config["compute"]["ecs2"].get("min_instances", 1)
         self.max_instances = config["compute"]["ecs2"].get("max_instances", 10)
 
-        cluster = ecs.Cluster(self, "cluster", vpc=self.vpc, container_insights=True)
+        cluster = ecs.Cluster(
+            self,
+            "cluster",
+            vpc=self.vpc,
+            container_insights=True,
+            enable_fargate_capacity_providers=True,
+        )
         cfn_ecs_cluster = cluster.node.default_child
         cfn_ecs_cluster.capacity_providers = ["FARGATE", "FARGATE_SPOT"]
         cfn_ecs_cluster.default_capacity_provider_strategy = [
