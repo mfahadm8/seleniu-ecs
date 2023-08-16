@@ -252,8 +252,6 @@ class Ecs(Construct):
         cluster_name,
         service_name,
         identifier,
-        load_balancer,
-        security_group,
         stack,
         max_instances,
         min_instances,
