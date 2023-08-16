@@ -1,5 +1,5 @@
-aws_account: "964915130125"
-aws_region: eu-west-3
+aws_account: "188775091215"
+aws_region: us-east-1
 
 network:
   vpc:
@@ -27,7 +27,7 @@ compute:
       fargate:
         weight: 0
         base: 0
-        
+
   ecs2:
     selenium_version: 3.141.59
     memory: 512
