@@ -2,7 +2,7 @@ from typing import Dict
 
 from aws_cdk import aws_ec2 as ec2, Stack
 from utils.stack_util import add_tags_to_stack
-from .ecs import Ecs
+from .ecs2 import Ecs
 from constructs import Construct
 
 

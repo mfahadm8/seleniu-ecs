@@ -1,8 +1,6 @@
 # CDK template application
 
-This repository hosts a CDK project that provison a multi-stage AWS infrastructure composed of a VPC, a kubrnetes cluster and an elasticsearch cluster.
-
-Learn more about this project setup by reading this [article](https://medium.com/better-programming/how-to-organize-your-aws-cdk-project-f1c463aa966e).
+This repository hosts a CDK project that provison Selenium ECS cluster with autoscaling setup and fargate.
 
 ## Prerequisite:
 Make sure you have the following installed and configured

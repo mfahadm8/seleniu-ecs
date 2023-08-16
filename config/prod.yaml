@@ -29,3 +29,6 @@ compute:
       fargate:
         weight: 25
         base: 1
+
+    ecs2:
+      

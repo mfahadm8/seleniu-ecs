@@ -27,3 +27,12 @@ compute:
       fargate:
         weight: 0
         base: 0
+        
+  ecs2:
+    selenium_version: 3.141.59
+    memory: 512
+    cpu: 256
+    selenium_node_max_instances: 5
+    selenium_node_max_sessions: 5
+    min_instances: 1
+    max_instances: 5
