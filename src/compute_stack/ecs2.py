@@ -30,9 +30,6 @@ class Ecs(Construct):
         super().__init__(scope, id)
         self._config = config
         self.vpc = vpc
-        self.__create_ecs_cluster()
-        self.__create_selenium_service()
-
         self.selenium_version = config["compute"]["ecs2"].get(
             "selenium_version", "3.141.59"
         )
