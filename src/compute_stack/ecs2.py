@@ -271,7 +271,7 @@ class Ecs(Construct):
             metric_name="CPUUtilization",
             statistic="max",
             period=Duration.minutes(1),
-            dimensions={
+            dimensions_map={
                 "ClusterName": cluster_name,
                 "ServiceName": service_name,
             },
