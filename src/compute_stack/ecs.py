@@ -113,7 +113,7 @@ class Ecs(Construct):
             desired_count=self._config["compute"]["ecs"]["selenium"][
                 "minimum_containers"
             ],
-            service_name="Seleniumwebapp-" + self._config["stage"],
+            service_name="Seleniumwebapp-" + self._config["stage"] + str(index),
             task_definition=selenium_taskdef,
             assign_public_ip=True,
             capacity_provider_strategies=capacity,
